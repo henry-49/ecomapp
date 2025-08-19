@@ -17,6 +17,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // tells Laravel explicitly which database table this model should use.
+    protected $table = 'users';
+    
     protected $fillable = [
         'name',
         'email',
