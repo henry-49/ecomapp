@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+
 Route::get('/login', [AuthManager::class, 'login'])->name('login');
 Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
 

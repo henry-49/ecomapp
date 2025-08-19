@@ -37,6 +37,12 @@ class AuthManager extends Controller
         }
     }
 
+    function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'You have been logged out successfully.');
+    }
+
     // return a view for registration
     function register()
     {
