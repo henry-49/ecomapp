@@ -6,7 +6,6 @@
 
     <main class="container" style="max-width: 900px;">
         <h1>Product List</h1>
-        <a href="#">Create New Product</a>
         <section>
             <div class="row">
                 @if($products->isEmpty())

@@ -29,3 +29,10 @@ Route::get('/', [ProductManager::class, 'index'])->name('home');
 # Route::get('/products/create', [ProductManager::class, 'create'])->name('product.create');
 // Route to view product details by slug
 Route::get('/product/{slug}', [ProductManager::class, 'details'])->name('product.details');
+
+Route::middleware("auth")->group(function () {
+   // Route to add a product to the cart
+    Route::get('/cart/{id}', [ProductManager::class, 'addToCart'])->name('cart.add');
+    // Route to show the cart items
+    Route::get('/cart', [ProductManager::class, 'showCart'])->name('cart.show');
+});

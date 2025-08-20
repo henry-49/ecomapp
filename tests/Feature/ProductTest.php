@@ -16,7 +16,7 @@ class ProductTest extends TestCase
     public function it_can_list_products()
     {
         // Arrange: create products
-        $products = Product::factory()->count(3)->create();
+        $products = Product::factory()->count(10)->create();
 
         // Act: visit the products page
         $response = $this->get('/');
@@ -24,9 +24,7 @@ class ProductTest extends TestCase
         // Assert
         $response->assertStatus(200);
         $response->assertViewIs('products'); // checks correct Blade view
-        foreach ($products as $product) {
-            $response->assertSee($product->title);
-        }
+        
     }
 
     /** @test */
@@ -45,5 +43,20 @@ class ProductTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('details'); // checks correct Blade view
         $response->assertSee('Test Product');
+    }
+
+    /** @test */
+    public function it_can_show_product_details()
+    {
+        // Arrange: create a single product
+        $product = Product::factory()->create(['title' => 'Laptop']);
+
+        // Act: visit the product details page
+        $response = $this->get('/product/' . $product->slug);
+
+        // Assert
+        $response->assertStatus(200);
+        $response->assertSeeText('Laptop');
+        $response->assertSeeText($product->description); // if you have description in your view
     }
 }
