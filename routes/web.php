@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\ProductManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,6 @@ use App\Http\Controllers\AuthManager;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
@@ -25,3 +23,9 @@ Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
 
 Route::get('/register', [AuthManager::class, 'register'])->name('register');
 Route::post('/register', [AuthManager::class, 'registerPost'])->name('register.post');
+
+Route::get('/', [ProductManager::class, 'index'])->name('home');
+
+# Route::get('/products/create', [ProductManager::class, 'create'])->name('product.create');
+// Route to view product details by slug
+Route::get('/product/{slug}', [ProductManager::class, 'details'])->name('product.details');
