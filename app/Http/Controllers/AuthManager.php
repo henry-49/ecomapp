@@ -9,20 +9,18 @@ use App\Models\User;
 
 class AuthManager extends Controller
 {
-    // return a view for login
+    
     function login()
     {
-        // Logic for handling user login
+        // return a view for login
         return view('auth.login');
-        // Validate request, authenticate user, etc.
+       
     }
 
     function loginPost(Request $request)
     {
         // Logic for handling post-login actions
         // Validate request, check credentials, etc.
-        // If successful, redirect user, set session, etc.
-    
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -30,6 +28,7 @@ class AuthManager extends Controller
 
         $credentials = $request->only('email', 'password');
 
+         // If successful, redirect user, set session, etc.
         if (Auth::attempt($credentials)) {
             return redirect()->intended(route('home')); // Redirect to intended page
         } else {
@@ -43,9 +42,10 @@ class AuthManager extends Controller
         return redirect()->route('login')->with('success', 'You have been logged out successfully.');
     }
 
-    // return a view for registration
+   
     function register()
     {
+        // return a view for registration
         return view('auth.register');
     }
 
