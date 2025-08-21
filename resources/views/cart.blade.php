@@ -8,8 +8,18 @@
         <h1>Your Cart</h1>
         <section>
             <div class="row">
+                  @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('error') }}
+                    </div>
+                @endif
                 @if($cartItems->isEmpty())
-                    <p>No products available.</p>
+                    <p>Cart is Empty</p>
                     @else
                     @foreach($cartItems as $item)
                         <div class="col-12">
@@ -22,7 +32,7 @@
                                     <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><a href="{{ route('product.details', ['slug' => $item->slug]) }}"><p>{{ $item->title }}</p></a></h5>
-                                        <p class="card-text">Price: ${{ $item->price }}</p>
+                                        <p class="card-text">Price: ${{ $item->price }} | Quantity: {{ $item->quantity }}</p>
                                     </div>
                                     </div>
                                 </div>
@@ -32,6 +42,9 @@
             </div>
             <div>
                 {{ $cartItems->links() }}
+            </div>
+            <div class="mt-4">
+                <a href="{{ route('checkout.show') }}" class="btn btn-primary">Proceed to Checkout</a>
             </div>
         </section>
     </main>
